@@ -13,9 +13,8 @@ const PORT = process.env.PORT as string
 /** server */
 const app = express()
 /** connect mongo DB */
+mongoose.set('strictQuery', false)
 mongoose.connect(DATABASE_CONNECTION)
-// .then(result => app.listen)
-// .then(result => console.log(result))
 
 mongoose.connection.on('error' , (error) => { console.log(error); })
 mongoose.connection.once('connected', () => { console.log(`Connected to {DATABASE_CONNECTION}`); })

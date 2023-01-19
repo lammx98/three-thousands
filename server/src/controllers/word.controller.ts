@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
-import Word from '../schemas/word.schema'
+import {Word} from '../schemas/word.schema'
+import WordModel from '../models/word'
 
 async function Create(model: WordModel) : Promise<String>  {
     var newWord = new Word();
@@ -24,7 +25,8 @@ async function Update(_id: mongoose.Types.ObjectId, model: WordModel) : Promise<
 
 async function GetById(_id: mongoose.Types.ObjectId) : Promise<WordModel> {
     var word = await Word.findById(_id);
-    
+
+    return new WordModel()
 }
 
 export { Create, Update }
