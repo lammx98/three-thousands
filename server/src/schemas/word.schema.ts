@@ -1,6 +1,6 @@
-import mongoose from "mongoose";
+import mongoose, { Document } from "mongoose";
 
-interface IWord {
+interface IWord extends Document {
     word: String,
     mean: String
 }

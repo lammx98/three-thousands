@@ -1,8 +1,8 @@
 import mongoose from "mongoose";
-import {Word} from '../schemas/word.schema'
+import {IWord, Word} from '../schemas/word.schema'
 import WordModel from '../models/word'
 
-async function Create(model: WordModel) : Promise<String>  {
+async function Create(model: IWord) : Promise<String>  {
     var newWord = new Word();
     newWord._id = new mongoose.Types.ObjectId()
     newWord.word = model.word;
@@ -11,7 +11,7 @@ async function Create(model: WordModel) : Promise<String>  {
     return "Ok"
 }
 
-async function Update(_id: mongoose.Types.ObjectId, model: WordModel) : Promise<String> {
+async function Update(_id: mongoose.Types.ObjectId, model: IWord) : Promise<String> {
     var update = await Word.findById(_id);
     if (update) {
         update.word = model.word;
@@ -23,10 +23,9 @@ async function Update(_id: mongoose.Types.ObjectId, model: WordModel) : Promise<
     return "item not found";
 }
 
-async function GetById(_id: mongoose.Types.ObjectId) : Promise<WordModel> {
+async function GetById(_id: mongoose.Types.ObjectId) : Promise<IWord> {
     var word = await Word.findById(_id);
-
-    return new WordModel()
+    return new Word()
 }
 
 export { Create, Update }
