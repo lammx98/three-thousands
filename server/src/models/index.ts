@@ -3,16 +3,24 @@
 //     FromSchema(schema: T): void
 // }
 
-class Model<T>{
-    ToModel(schema: T): this {
-        
+class Model<TSchema>{
+    Schema: TSchema;
+    constructor(TSCreator: { new () : TSchema; } ){
+        this.Schema = new TSCreator()
+    }
+    CreateInstance(obj: object): this {
+        Object.getOwnPropertyNames(this).forEach(prop => {
+            this.reflectionSet(this, prop, Object.values(obj).find(o => o === prop))
+        });
         return this;
     }
 
-    ToSchema(body: object, schema: T): void {
+    ToSchema(): TSchema {
+        var schema = this.Schema;
         Object.getOwnPropertyNames(schema).forEach(prop => {
-            this.reflectionSet(schema, prop, Object.values(body).find(o => o === prop))
+            this.reflectionSet(schema, prop, Object.values(this).find(o => o === prop))
         });
+        return schema;
     }
     
     reflectionSet(obj: any, propString: string, value: string) : void {

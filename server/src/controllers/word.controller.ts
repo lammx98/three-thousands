@@ -1,8 +1,15 @@
 import mongoose from "mongoose";
 import {IWord, Word} from '../schemas/word.schema'
 import WordModel from '../models/word'
+import { Result } from "../models/result";
 
-async function Create(model: IWord) : Promise<String>  {
+const model = new WordModel();
+
+async function Create(body: object) : Promise<mongoose.Types.ObjectId> {
+    return await model.create(body);
+}
+
+async function Create2(model: IWord) : Promise<String>  {
     var newWord = new Word();
     newWord._id = new mongoose.Types.ObjectId()
     newWord.word = model.word;
@@ -12,7 +19,7 @@ async function Create(model: IWord) : Promise<String>  {
 }
 
 async function Update(_id: mongoose.Types.ObjectId, model: IWord) : Promise<String> {
-    var update = await Word.findById(_id);
+    var update = await Word.findById(_id).exec();
     if (update) {
         update.word = model.word;
         update.mean = model.mean;
@@ -23,9 +30,12 @@ async function Update(_id: mongoose.Types.ObjectId, model: IWord) : Promise<Stri
     return "item not found";
 }
 
-async function GetById(_id: mongoose.Types.ObjectId) : Promise<IWord> {
-    var word = await Word.findById(_id);
-    return new Word()
+async function GetById(_id: mongoose.Types.ObjectId) : Promise<Result<WordModel>> {
+    var data = await model.GetById(_id);
+    if (data != null) {
+        return (new Result<WordModel>().OK(data))
+    }
+    return (new Result<WordModel>().Error())
 }
 
-export { Create, Update }
+export { Create, Update, GetById }
