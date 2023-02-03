@@ -3,18 +3,13 @@ import {Model} from ".";
 import { IWord, Word } from "../schemas/word.schema"
 import { Result } from "./result";
 
-class WordModel extends Model<InstanceType<typeof Word>> {
+class WordModel extends Model {
     word: String | null = null;
     mean: String | null = null;
 
-    constructor(){
-        super(Word);
-    }
-
     async create(body: object) : Promise<mongoose.Types.ObjectId>{
         var model = this.CreateInstance(body);
-        var schema = model.ToSchema();
-        schema._id = new mongoose.Types.ObjectId();
+        var schema = model.CreateSchema(new Word());
         await schema.save();
         return schema._id;
     }

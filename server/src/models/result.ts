@@ -23,6 +23,13 @@ class Result<T> {
         this.data = this.data
         return this;
     }
+
+    DataEmpty(message: String | null = null) : this {
+        this.code = this.code ?? 201
+        this.message = this.message ?? "Data not found"
+        this.data = this.data
+        return this;
+    }
 }
 
 export {Result}

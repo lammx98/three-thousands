@@ -31,11 +31,15 @@ async function Update(_id: mongoose.Types.ObjectId, model: IWord) : Promise<Stri
 }
 
 async function GetById(_id: mongoose.Types.ObjectId) : Promise<Result<WordModel>> {
-    var data = await model.GetById(_id);
-    if (data != null) {
-        return (new Result<WordModel>().OK(data))
+    try {
+        var data = await model.GetById(_id);
+        if (data != null) {
+            return (new Result<WordModel>().OK(data))
+        }
+        return (new Result<WordModel>().DataEmpty())
+    } catch (error) {
+        return (new Result<WordModel>().Error(String(error)))
     }
-    return (new Result<WordModel>().Error())
 }
 
 export { Create, Update, GetById }

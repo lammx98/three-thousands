@@ -1,6 +1,7 @@
 "use strict";
 import express from 'express';
 import mongoose from 'mongoose'
+import wordrouter from './routers/word.routers'
 const bodyParser = require('body-parser')
 require('dotenv').config()
 /** env variables */
@@ -11,10 +12,23 @@ const PORT = process.env.PORT as string
 /** global settings */
 
 /** server */
-const app = express()
+const app: express.Application = express()
+/** settings */
+app.use(bodyParser.urlencoded({extends: true}))
+app.use(bodyParser.json())
 /** connect mongo DB */
 mongoose.set('strictQuery', false)
 mongoose.connect(DATABASE_CONNECTION)
 
 mongoose.connection.on('error' , (error) => { console.log(error); })
-mongoose.connection.once('connected', () => { console.log(`Connected to {DATABASE_CONNECTION}`); })
+mongoose.connection.once('connected', () => { console.log(`Connected to ${DATABASE_CONNECTION}`); })
+
+/** routers config */
+app.get('/test', (req: express.Request, res: express.Response) => {
+    res.setHeader('Content-Type', 'text/html')
+    res.end('<h1>Hello World</h1>')
+})
+
+app.use('/api/word', wordrouter)
+
+app.listen(PORT, () => console.log(`app running on port ${PORT}`))

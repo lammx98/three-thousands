@@ -3,34 +3,25 @@
 //     FromSchema(schema: T): void
 // }
 
-class Model<TSchema>{
-    Schema: TSchema;
-    constructor(TSCreator: { new () : TSchema; } ){
-        this.Schema = new TSCreator()
-    }
+import { Document } from "mongoose";
+
+class Model{
+    
     CreateInstance(obj: object): this {
         Object.getOwnPropertyNames(this).forEach(prop => {
-            this.reflectionSet(this, prop, Object.values(obj).find(o => o === prop))
+            Object.defineProperty(this, prop, {
+                value: Object.entries(obj).find(o => o[0] === prop)?.[1],
+                writable: true
+            })
         });
         return this;
     }
 
-    ToSchema(): TSchema {
-        var schema = this.Schema;
-        Object.getOwnPropertyNames(schema).forEach(prop => {
-            this.reflectionSet(schema, prop, Object.values(this).find(o => o === prop))
+    CreateSchema(schema: Document) : Document{
+        Object.entries(this).forEach(o => {
+            schema.set(o[0], o[1])
         });
         return schema;
-    }
-    
-    reflectionSet(obj: any, propString: string, value: string) : void {
-        return propString.split(".").reduce(function(result, part, index, array) {
-            if (index === array.length - 1) {
-                result[part] = value;
-                return obj;
-            }
-            return result[part];
-        }, obj);
     }
 }
 

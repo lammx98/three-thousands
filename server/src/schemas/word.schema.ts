@@ -1,6 +1,7 @@
 import mongoose, { Document } from "mongoose";
+import { ISchema } from './index'
 
-interface IWord extends Document {
+interface IWord extends ISchema {
     word: String,
     mean: String
 }
