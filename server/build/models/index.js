@@ -15,6 +15,15 @@ class Model {
         });
         return this;
     }
+    CreateFromSchema(schema) {
+        Object.getOwnPropertyNames(this).forEach(prop => {
+            Object.defineProperty(this, prop, {
+                value: schema.get(prop),
+                writable: true
+            });
+        });
+        return this;
+    }
     CreateSchema(schema) {
         Object.entries(this).forEach(o => {
             schema.set(o[0], o[1]);

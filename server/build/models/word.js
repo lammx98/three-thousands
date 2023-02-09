@@ -29,7 +29,7 @@ class WordModel extends _1.Model {
         return __awaiter(this, void 0, void 0, function* () {
             var result = yield word_schema_1.Word.findById(_id).exec();
             if (result) {
-                return (new WordModel()).CreateInstance(result);
+                return (new WordModel()).CreateFromSchema(result);
             }
             return null;
         });

@@ -16,7 +16,7 @@ class WordModel extends Model {
     async GetById(_id: mongoose.Types.ObjectId) : Promise<WordModel | null> {
         var result = await Word.findById(_id).exec();
         if (result) {
-            return (new WordModel()).CreateInstance(result);
+            return (new WordModel()).SchemaToModel(result);
         }
         return null;
     }

@@ -9,15 +9,6 @@ async function Create(body: object) : Promise<mongoose.Types.ObjectId> {
     return await model.create(body);
 }
 
-async function Create2(model: IWord) : Promise<String>  {
-    var newWord = new Word();
-    newWord._id = new mongoose.Types.ObjectId()
-    newWord.word = model.word;
-    newWord.mean = model.mean;
-    await newWord.save()
-    return "Ok"
-}
-
 async function Update(_id: mongoose.Types.ObjectId, model: IWord) : Promise<String> {
     var update = await Word.findById(_id).exec();
     if (update) {
@@ -34,11 +25,11 @@ async function GetById(_id: mongoose.Types.ObjectId) : Promise<Result<WordModel>
     try {
         var data = await model.GetById(_id);
         if (data != null) {
-            return (new Result<WordModel>().OK(data))
+            return (new Result<WordModel>()).OK(data)
         }
-        return (new Result<WordModel>().DataEmpty())
+        return (new Result<WordModel>()).DataEmpty()
     } catch (error) {
-        return (new Result<WordModel>().Error(String(error)))
+        return (new Result<WordModel>()).Error(String(error))
     }
 }
 

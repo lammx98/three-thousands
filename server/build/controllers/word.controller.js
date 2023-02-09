@@ -52,12 +52,12 @@ function GetById(_id) {
         try {
             var data = yield model.GetById(_id);
             if (data != null) {
-                return (new result_1.Result().OK(data));
+                return (new result_1.Result()).OK(data);
             }
-            return (new result_1.Result().DataEmpty());
+            return (new result_1.Result()).DataEmpty();
         }
         catch (error) {
-            return (new result_1.Result().Error(String(error)));
+            return (new result_1.Result()).Error(String(error));
         }
     });
 }

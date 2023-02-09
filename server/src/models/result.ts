@@ -13,20 +13,20 @@ class Result<T> {
     OK(data: T | null = null) : this {
         this.code = this.code ?? 200
         this.message = this.message ?? "OK"
-        this.data = this.data
+        this.data = data ?? this.data
         return this;
     }
 
     Error(message: String | null = null) : this {
         this.code = this.code ?? 500
-        this.message = this.message ?? "An exception was throwed"
+        this.message = message ?? "An exception was throwed"
         this.data = this.data
         return this;
     }
 
     DataEmpty(message: String | null = null) : this {
         this.code = this.code ?? 201
-        this.message = this.message ?? "Data not found"
+        this.message = message ?? "Data not found"
         this.data = this.data
         return this;
     }

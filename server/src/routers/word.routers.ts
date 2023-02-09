@@ -10,7 +10,7 @@ router.get('/get', async (req: express.Request, res: express.Response) => {
 })
 
 router.post('/create', async (req: express.Request, res: express.Response) => {
-    var result = await _wordController.Create(req.body)
+    var result = await _wordController.Create(req.body as object)
     res.send(result)
 })
 

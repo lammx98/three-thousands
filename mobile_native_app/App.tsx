@@ -8,13 +8,14 @@
  * @format
  */
 
+import { NativeBaseProvider } from 'native-base';
 import React from 'react';
 import {SafeAreaView, ScrollView, Text} from 'react-native';
 import { Provider } from 'react-redux';
 import {legacy_createStore} from 'redux';
 import { applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
-import Counter from './_redux/counter/Counter';
+import MainView from './src/views';
 import {store} from './_redux/store'
 
 const App = () => {
@@ -22,7 +23,9 @@ const App = () => {
     <Provider store={store}>
       <SafeAreaView>
         <ScrollView>
-          <Counter />
+        <NativeBaseProvider>
+          <MainView />
+        </NativeBaseProvider>
         </ScrollView>
       </SafeAreaView>
     </Provider>
