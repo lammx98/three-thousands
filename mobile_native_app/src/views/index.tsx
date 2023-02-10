@@ -25,6 +25,10 @@ function MainView(props: any) {
                     headerTitle: "Game",
                     headerTitleAlign: 'center'
                 }} />
+                <Stack.Screen name="Level1" component={GameView} options={{
+                    headerTitle: "Cấp độ 1",
+                    headerTitleAlign: 'center'
+                }} />
             </Stack.Navigator>
         </NavigationContainer>
     )
