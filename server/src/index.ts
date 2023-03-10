@@ -6,7 +6,7 @@ const bodyParser = require('body-parser')
 require('dotenv').config()
 /** env variables */
 const DATABASE_CONNECTION = process.env.DATABASE_CONNECTION as string
-const PORT = process.env.PORT as string
+const PORT = parseInt(process.env.PORT as string)
 /** import components */
 
 /** global settings */
@@ -31,4 +31,5 @@ app.get('/test', (req: express.Request, res: express.Response) => {
 
 app.use('/api/word', wordrouter)
 
-app.listen(PORT, () => console.log(`app running on port ${PORT}`))
+app.listen(PORT, () => console.log(`app running on ${PORT}`))
+//app.listen(PORT, 'localhost', () => console.log(`app running on http://localhost:${PORT}`))

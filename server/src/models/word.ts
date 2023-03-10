@@ -6,6 +6,7 @@ import { Result } from "./result";
 class WordModel extends Model {
     word: String | null = null;
     mean: String | null = null;
+    type: String | null = null;
 
     async create(body: object) : Promise<mongoose.Types.ObjectId>{
         var model = this.CreateInstance(body);

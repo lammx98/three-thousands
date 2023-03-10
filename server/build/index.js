@@ -10,7 +10,7 @@ const bodyParser = require('body-parser');
 require('dotenv').config();
 /** env variables */
 const DATABASE_CONNECTION = process.env.DATABASE_CONNECTION;
-const PORT = process.env.PORT;
+const PORT = parseInt(process.env.PORT);
 /** import components */
 /** global settings */
 /** server */
@@ -29,5 +29,5 @@ app.get('/test', (req, res) => {
     res.end('<h1>Hello World</h1>');
 });
 app.use('/api/word', word_routers_1.default);
-app.listen(PORT, () => console.log(`app running on port ${PORT}`));
+app.listen(PORT, () => console.log(`app running on ${PORT}`));
 //# sourceMappingURL=index.js.map

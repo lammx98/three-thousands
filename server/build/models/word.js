@@ -16,6 +16,7 @@ class WordModel extends _1.Model {
         super(...arguments);
         this.word = null;
         this.mean = null;
+        this.type = null;
     }
     create(body) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -29,7 +30,7 @@ class WordModel extends _1.Model {
         return __awaiter(this, void 0, void 0, function* () {
             var result = yield word_schema_1.Word.findById(_id).exec();
             if (result) {
-                return (new WordModel()).CreateFromSchema(result);
+                return (new WordModel()).SchemaToModel(result);
             }
             return null;
         });

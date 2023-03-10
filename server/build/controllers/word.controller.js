@@ -13,7 +13,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.GetById = exports.Update = exports.Create = void 0;
-const mongoose_1 = __importDefault(require("mongoose"));
 const word_schema_1 = require("../schemas/word.schema");
 const word_1 = __importDefault(require("../models/word"));
 const result_1 = require("../models/result");
@@ -24,16 +23,6 @@ function Create(body) {
     });
 }
 exports.Create = Create;
-function Create2(model) {
-    return __awaiter(this, void 0, void 0, function* () {
-        var newWord = new word_schema_1.Word();
-        newWord._id = new mongoose_1.default.Types.ObjectId();
-        newWord.word = model.word;
-        newWord.mean = model.mean;
-        yield newWord.save();
-        return "Ok";
-    });
-}
 function Update(_id, model) {
     return __awaiter(this, void 0, void 0, function* () {
         var update = yield word_schema_1.Word.findById(_id).exec();
